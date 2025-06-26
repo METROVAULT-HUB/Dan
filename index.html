@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Client Banking Profile</title>
+    <style>
+        :root {
+            --primary: #004481;
+            --accent: #0080ff;
+            --light-bg: #f7f9fa;
+            --white: #ffffff;
+            --text-dark: #2c3e50;
+            --text-light: #000000;
+            --border: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 5px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        h1,
+        h2 {
+            margin: 0 0 20px;
+            color: var(--primary);
+        }
+
+        .section-title {
+            font-size: 20px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .client-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            flex: 1;
+        }
+
+        .profile-item {
+            margin-bottom: 10px;
+        }
+
+        .profile-item span {
+            display: block;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .accounts-summary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .account-card {
+            flex: 1;
+            min-width: 200px;
+            background-color: var(--accent);
+            color: var(--white);
+            border-radius: 8px;
+            padding: 15px 20px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .account-card h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .account-card p {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: #f1f1f1;
+        }
+
+        .action-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .action-buttons button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .action-buttons button:hover {
+            background-color: #002b60;
+        }
+
+        .site-footer {
+            background-color: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 20px 10px;
+            font-size: 14px;
+            margin-top: 40px;
+            border-top: 4px solid var(--accent);
+        }
+        
+        .site-footer .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+
+        @media (max-width: 600px) {
+            .accounts-summary {
+                flex-direction: column;
+            }
+
+            .client-info {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+            <img src="./favicon.ico" alt="Company Logo" style="height: 50px;" />
+            <h1>Hi, Jane Smith</h1>
+        </div>
+
+        <div class="card" style="background-image: radial-gradient(circle at 53% 25%, rgba(203, 203, 203,0.04) 0%, rgba(203, 203, 203,0.04) 36%,transparent 36%, transparent 100%),radial-gradient(circle at 48% 27%, rgba(22, 22, 22,0.04) 0%, rgba(22, 22, 22,0.04) 45%,transparent 45%, transparent 100%),radial-gradient(circle at 65% 50%, rgba(219, 219, 219,0.04) 0%, rgba(219, 219, 219,0.04) 61%,transparent 61%, transparent 100%),radial-gradient(circle at 78% 82%, rgba(229, 229, 229,0.04) 0%, rgba(229, 229, 229,0.04) 26%,transparent 26%, transparent 100%),radial-gradient(circle at 99% 75%, rgba(96, 96, 96,0.04) 0%, rgba(96, 96, 96,0.04) 31%,transparent 31%, transparent 100%),radial-gradient(circle at 17% 28%, rgba(188, 188, 188,0.04) 0%, rgba(188, 188, 188,0.04) 15%,transparent 15%, transparent 100%),radial-gradient(circle at 19% 19%, rgba(25, 25, 25,0.04) 0%, rgba(25, 25, 25,0.04) 68%,transparent 68%, transparent 100%),radial-gradient(circle at 35% 23%, rgba(31, 31, 31,0.04) 0%, rgba(31, 31, 31,0.04) 18%,transparent 18%, transparent 100%),linear-gradient(90deg, rgb(230,236,244),rgb(20, 21, 171));">
+            <div class="section-title">Client Information</div>
+            <div class="client-info">
+                <img class="profile-pic" src="./44.jpg" alt="Client Photo" />
+                <div class="profile-grid">
+                    <div class="profile-item">
+                        <strong>Full Name</strong>
+                        <span>Jane Smith</span>
+                    </div>
+                    <div class="profile-item">
+                        <strong>Date of Birth</strong>
+                        <span>1990-05-12</span>
+                    </div>
+                    <div class="profile-item">
+                        <strong>Email</strong>
+                        <span>jane.smith@bankmail.com</span>
+                    </div>
+                    <div class="profile-item">
+                        <strong>Phone</strong>
+                        <span>+1 555-9021</span>
+                    </div>
+                    <div class="profile-item">
+                        <strong>Address</strong>
+                        <span>456 Elm St, New York, NY 10001</span>
+                    </div>
+                    <div class="profile-item">
+                        <strong>KYC ID</strong>
+                        <span>KYC202505JS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-title">Accounts Overview</div>
+            <div class="accounts-summary">
+                <div class="account-card">
+                    <h3>Checking Account</h3>
+                    <p id="checkingBalance">$2.00</p>
+                </div>
+                <div class="account-card">
+                    <h3>Savings Account</h3>
+                    <p>$0.00</p>
+                </div>
+                <div class="account-card">
+                    <h3>Loan Balance</h3>
+                    <p>$0.00</p>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button onclick="window.location.href='withdraw.html'">
+                    Withdraw Funds
+                </button>
+                <button onclick="window.location.href='add.html'">
+                    Add Funds
+                </button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-title">Recent Transactions</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Account</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="transactionTable">
+                    <tr>
+                        <td>2025-06-01</td>
+                        <td>Checking</td>
+                        <td>Deposit</td>
+                        <td>$1,000.00</td>
+                        <td>Completed</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            <div style="text-align: left; margin-top: 10px;">
+                <button onclick="window.location.href='transaction.html'" style="background-color: var(--accent); padding: 8px 16px; border: none; border-radius: 4px; color: white; cursor: pointer;">
+                    Show More
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+          &copy; 2025 <strong>MetrovaultBank Org</strong>. All rights reserved.
+        </div>
+      </footer>
+
+    <script>
+        const DEFAULT_BALANCE = 0.00; // 👈 Change this to set a new balance
+
+        // Always override localStorage with your set value
+        localStorage.setItem("checkingBalance", DEFAULT_BALANCE);
+
+        let checkingBalance = DEFAULT_BALANCE;
+
+        function updateCheckingBalanceDisplay() {
+            document.getElementById("checkingBalance").textContent = `$${checkingBalance.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+            })}`;
+        }
+
+        updateCheckingBalanceDisplay();
+
+        window.addEventListener("storage", function (e) {
+            if (e.key === "checkingBalance") {
+                checkingBalance = parseFloat(e.newValue);
+                updateCheckingBalanceDisplay();
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

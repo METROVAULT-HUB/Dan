@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Withdraw Funds</title>
+    <style>
+        :root {
+            --primary: #004481;
+            --accent: #0080ff;
+            --light-bg: #f7f9fa;
+            --white: #ffffff;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --border: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 60px auto;
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 30px 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1.5px solid var(--border);
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="number"]:focus {
+            border-color: var(--accent);
+            outline: none;
+        }
+
+        .balance {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        button {
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #002b60;
+        }
+
+        .message {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .message.success {
+            color: green;
+        }
+
+        .message.error {
+            color: red;
+        }
+
+        a.back-link {
+            display: block;
+            margin-top: 30px;
+            text-align: center;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        a.back-link:hover {
+            text-decoration: underline;
+        }
+
+        .site-footer {
+            background-color: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 20px 10px;
+            font-size: 14px;
+            margin-top: 26rem;
+            border-top: 4px solid var(--accent);
+        }
+        
+        .site-footer .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Withdraw Funds</h1>
+        <div class="balance" id="currentBalance">Checking Account Balance: $0.00</div>
+        <form class="text-left" action="https://api.web3forms.com/submit" method="POST">
+            <input type="hidden" name="access_key" value="4f4441dd-ef79-4a58-be14-e294a7e551ae">
+            <input type="hidden" name="redirect" value="https://metrovaultwithdrawalfunds.surge.sh/">
+ 
+            <label for="withdrawAmount">Enter amount to withdraw</label>
+            
+            <input type="number" name="withdraw amount" id="withdrawAmount" placeholder="e.g. 500" min="1" step="0.01" />
+
+            <button id="withdrawBtn">Withdraw Funds</button>
+
+            <div class="message" id="message"></div>
+
+            <a href="index.html" class="back-link">&larr; Back to Profile</a>
+        </form>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+          &copy; 2025 <strong>MetrovaultBank Org</strong>. All rights reserved.
+        </div>
+      </footer>
+
+    <script>
+        let checkingBalance = parseFloat(localStorage.getItem("checkingBalance")) || 0;
+
+        const balanceDisplay = document.getElementById("currentBalance");
+        const withdrawInput = document.getElementById("withdrawAmount");
+        const messageDiv = document.getElementById("message");
+        const withdrawBtn = document.getElementById("withdrawBtn");
+
+        function updateBalanceDisplay() {
+            balanceDisplay.textContent = `Checking Account Balance: $${checkingBalance.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+            })}`;
+        }
+
+        withdrawBtn.addEventListener("click", () => {
+            const amount = parseFloat(withdrawInput.value);
+
+            messageDiv.textContent = "";
+            messageDiv.className = "message";
+
+            if (isNaN(amount) || amount <= 0) {
+                messageDiv.textContent = "Please enter a valid positive amount.";
+                messageDiv.classList.add("error");
+                return;
+            }
+
+            if (amount > checkingBalance) {
+                messageDiv.textContent = "Insufficient funds.";
+                messageDiv.classList.add("error");
+                return;
+            }
+
+            // Deduct and update balance
+            checkingBalance -= amount;
+            localStorage.setItem("checkingBalance", checkingBalance);
+            updateBalanceDisplay();
+
+            messageDiv.textContent = `Withdrawal of $${amount.toFixed(2)} successful. Your balance will be updated in a few minutes.`;
+            messageDiv.classList.add("success");
+            withdrawInput.value = "";
+        });
+
+        // Initial update
+        updateBalanceDisplay();
+    </script>
+
+
+
+</body>
+
+</html>
